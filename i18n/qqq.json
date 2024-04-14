@@ -1,0 +1,36 @@
+{
+	"@metadata": {
+		"authors": [
+			"Robert Vogel <vogel@hallowelt.com>",
+			"Shiz <hi@shiz.me>"
+		]
+	},
+
+	"ext.hybridauth.desc": "Hybrid authentication and authorization against external resources",
+	"ext.hybridauth.configuration-error": "Domain configuration error. Please contact your system administrator.",
+
+	"ext.hybridauth.authentication.credential-error": "Could not authenticate credentials against domain \"$1\".",
+	"ext.hybridauth.authentication.userinfo-error": "Could not fetch required user info to complete login.",
+
+	"ext.hybridauth.map.not-linking": "Found local user, but can not verify match. Please login locally and match your attributes, or register a new user with matching attributes.",
+	"ext.hybridauth.map.not-creating": "Could not find local user to map to and creation is disabled.",
+
+	"ext.hybridauth.update.action-error": "Invalid change action: $1",
+	"ext.hybridauth.update.domain-missing": "No domain specified",
+	"ext.hybridauth.update.domain-error": "Invalid domain: $1",
+	"ext.hybridauth.update.id-missing": "No provider user ID specified",
+
+	"ext.hybridauth.local-domain-label": "(Local)",
+	"ext.hybridauth.provider-label": "$1",
+	"ext.hybridauth.provider-domain-label": "$2: $1",
+	"ext.hybridauth.domain-label": "$1",
+	"ext.hybridauth.account-label": "$1: $2",
+
+	"ext.hybridauth.attr-label": "$1",
+	"ext.hybridauth.attr-help": "LDAP '$1' attribute",
+
+	"apihelp-ext.hybridauth.unlink-summary": "Unlink user from MediaWiki user",
+	"apihelp-ext.hybridauth.unlink-extended-description": "This API can be called to unlink the provider <-> MediaWiki user mapping for a given provider user.",
+	"apihelp-ext.hybridauth.unlink-param-domain": "Domain",
+	"apihelp-ext.hybridauth.unlink-param-provider-user-id": "Provider user ID"
+}

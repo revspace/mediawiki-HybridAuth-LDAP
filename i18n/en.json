@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Robert Vogel <vogel@hallowelt.com>",
+			"Shiz <hi@shiz.me>"
+		]
+	},
+
+	"ext.hybridauth.ldap.desc": "HybridAuth provider for LDAP authentication and authorization",
+	"ext.hybridauth.ldap.provider-desc": "LDAP",
+	"ext.hybridauth.ldap.attr-label": "$1",
+	"ext.hybridauth.ldap.attr.loginShell-label": "Login shell"
+}

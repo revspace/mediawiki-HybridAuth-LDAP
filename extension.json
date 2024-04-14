@@ -1,0 +1,35 @@
+{
+	"name": "HybridAuth-LDAP",
+	"version": "1.0",
+	"author": [
+		"Shiz"
+	],
+	"url": "https://github.com/revspace/mediawiki-HybridAuth-LDAP",
+	"descriptionmsg": "ext.hybridauth.ldap.desc",
+	"license-name": "GPL-2.0",
+	"type": "other",
+	"requires": {
+		"MediaWiki": ">= 1.35.0",
+		"extensions": {
+			"HybridAuth": "1.*"
+		}
+	},
+
+	"AutoloadNamespaces": {
+		"MediaWiki\\Extension\\HybridAuthLDAP\\" : "src/"
+	},
+	"MessagesDirs": {
+		"HybridAuth-LDAP": [
+			"i18n"
+		]
+	},
+	"attributes": {
+		"HybridAuth": {
+			"HybridAuth-LDAP": {
+				"class": "MediaWiki\\Extension\\HybridAuthLDAP\\LDAPHybridAuthProvider"
+			}
+		}
+	},
+	"load_composer_autoloader" : true,
+	"manifest_version": 2
+}
