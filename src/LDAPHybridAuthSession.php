@@ -29,6 +29,11 @@ class LDAPHybridAuthSession extends HybridAuthSession {
 	 */
 	protected $ldapBindPassword;
 
+	/**
+	 * @var ?string
+	 */
+	protected $newPassword;
+
 	public function __construct( LDAPHybridAuthProvider $ldapProvider, string $ldapDN, ?string $ldapBindDN = null, ?string $ldapBindPassword = null) {
 		$this->ldapProvider = $ldapProvider;
 		$this->ldapDN = $ldapDN;
@@ -42,13 +47,38 @@ class LDAPHybridAuthSession extends HybridAuthSession {
 
 	public function getUserAttributes( string $attr ): ?array {
 		$this->ensureBound();
-		$attrs = $this->ldapProvider->getLDAPUser( $this->ldapDN, [ $attr ] );
-		return $attrs ? ($attrs[$attr] ?? null) : null;
+		switch ( $attr ) {
+		case LDAPHybridAuthProvider::ATTR_NEWPASSWORD:
+		case LDAPHybridAuthProvider::ATTR_NEWPASSWORD_CONFIRM:
+			return [];
+		default:
+			$attrs = $this->ldapProvider->getLDAPUser( $this->ldapDN, [ $attr ] );
+			return $attrs ? ($attrs[$attr] ?? null) : null;
+		}
 	}
 
 	public function setUserAttributes( string $attr, ?array $values ): bool {
 		$this->ensureBound();
-		return $this->ldapProvider->modifyLDAPUser( $this->ldapDN, [ $attr => $values ?? [] ] );
+		switch ( $attr ) {
+		case LDAPHybridAuthProvider::ATTR_NEWPASSWORD:
+			if ( !$values ) {
+				return true;
+			}
+			$this->newPassword = $values[0];
+			return true;
+		case LDAPHybridAuthProvider::ATTR_NEWPASSWORD_CONFIRM:
+			if ( !$values ) {
+				return true;
+			}
+			$password = $this->newPassword;
+			$this->newPassword = null;
+			if ( $password !== $values[0] ) {
+				return false;
+			}
+			return $this->ldapProvider->modifyLDAPPassword( $this->ldapDN, $password );
+		default:
+			return $this->ldapProvider->modifyLDAPUser( $this->ldapDN, [ $attr => $values ?? [] ] );
+		}
 	}
 
 	protected function ensureBound() {

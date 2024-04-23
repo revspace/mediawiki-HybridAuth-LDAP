@@ -187,6 +187,11 @@ class LDAPClient {
 		return \ldap_mod_replace( $this->conn, $dn, $attributes );
 	}
 
+	public function setPassword( string $dn, string $password ): bool {
+		$this->ensureBound();
+		return \ldap_exop_passwd( $this->conn, $dn, null, $password );
+	}
+
 	public function search( array $attributes, ?array $filters = null, ?string $dn = null ): ?array {
 		$this->ensureBound();
 

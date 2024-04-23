@@ -27,6 +27,9 @@ class LDAPHybridAuthProvider extends HybridAuthProvider {
 	const USERCONFIG_SETTABLE_PASSWORD = 'settable_password';
 	const USERCONFIG_SET_NEEDS_AUTH = 'set_needs_auth';
 
+	const ATTR_NEWPASSWORD = 'new_password';
+	const ATTR_NEWPASSWORD_CONFIRM = 'new_retype';
+
 	/**
 	 * @var string
 	 */
@@ -108,14 +111,14 @@ class LDAPHybridAuthProvider extends HybridAuthProvider {
 		$fields = [];
 		if ( $this->getUserConfig( static::USERCONFIG_SETTABLE_PASSWORD, false ) ) {
 			$fields = array_merge( $fields, [
-				'new_password' => [
+				static::ATTR_NEWPASSWORD => [
 					'type' => 'password',
 					'label' => wfMessage( 'newpassword' ),
 					'help' => wfMessage( 'authmanager-password-help' ),
 					'sensitive' => true,
 					'optional' => true,
 				],
-				'new_retype' => [
+				static::ATTR_NEWPASSWORD_CONFIRM => [
 					'type' => 'password',
 					'label' => wfMessage( 'retypenew' ),
 					'help' => wfMessage( 'authmanager-retype-help' ),
@@ -296,6 +299,16 @@ class LDAPHybridAuthProvider extends HybridAuthProvider {
 	 */
 	public function modifyLDAPUser( string $dn, array $attributes ): bool {
 		return $this->ldapClient->modify( $dn, $attributes );
+	}
+
+	/**
+	 * Modify a single LDAP user's password
+	 * @param string $dn            User DN to modify
+	 * @param string $password      New password
+	 * @return bool                 Whether the modification was successful
+	 */
+	public function modifyLDAPPassword( string $dn, string $password ): bool {
+		return $this->ldapClient->setPassword( $dn, $password );
 	}
 
 	/*
