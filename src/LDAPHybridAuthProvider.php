@@ -162,7 +162,7 @@ class LDAPHybridAuthProvider extends HybridAuthProvider {
 		if ( $this->getUserConfig( static::USERCONFIG_SET_NEEDS_AUTH, false ) ) {
 			return false;
 		}
-		return $this->bindFor( $providerUserID );
+		return @$this->bindFor( $providerUserID );
 	}
 
 	public function sudo( string $providerUserID, ?Message &$errorMessage ): ?HybridAuthSession {
