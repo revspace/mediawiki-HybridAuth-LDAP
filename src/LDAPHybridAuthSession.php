@@ -29,11 +29,11 @@ class LDAPHybridAuthSession extends HybridAuthSession {
 	 */
 	protected $ldapBindPassword;
 
-	public function __construct( LDAPHybridAuthProvider $ldapProvider, string $ldapDN, ?string $ldapBindDN = null, ?string $ldapPassword = null) {
+	public function __construct( LDAPHybridAuthProvider $ldapProvider, string $ldapDN, ?string $ldapBindDN = null, ?string $ldapBindPassword = null) {
 		$this->ldapProvider = $ldapProvider;
 		$this->ldapDN = $ldapDN;
 		$this->ldapBindDN = $ldapBindDN;
-		$this->ldapPassword = $ldapBindPassword;
+		$this->ldapBindPassword = $ldapBindPassword;
 	}
 
 	public function getUserID(): ?string {
